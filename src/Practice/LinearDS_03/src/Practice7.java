@@ -14,8 +14,44 @@ package Practice.LinearDS_03.src;// Practice7
 // 15 10 5
 
 
+import java.util.Arrays;
+
 public class Practice7 {
     public static void main(String[] args) {
+        int[][] arr = new int[5][3];
+        int[][] result = new int[arr[0].length][arr.length];
+        int a = 1;
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println();
+            for(int j = 0; j < arr[i].length; j++) {
+                arr[j][i] = a++;
+                System.out.print(arr[j][i]);
+            }
+        }
+        /*
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                arr[i][j] = a++;
+            }
+        }
+        for (int i = 0; i < arr[0].length; i++) {
+            System.out.println();
+            for (int j = arr.length - 1; j >= 0; j--) {
+                System.out.print(arr[j][i] + " ");
+            }
+        }
+        /*
+         */
+        /*
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] = arr[2 - j][i];
+            }
+        }
+        for (int[] item : result) {
+            System.out.println(Arrays.toString(item));
+        }
 
+         */
     }
 }

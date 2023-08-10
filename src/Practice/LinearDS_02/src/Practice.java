@@ -1,4 +1,5 @@
-package Practice.LinearDS_02.src;// Practice
+package Practice.LinearDS_02.src;
+// Practice
 // 기본 배열 자료형을 이용한 배열의 생성, 삽입, 삭제 기능 구현
 
 import java.util.Arrays;
