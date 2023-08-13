@@ -14,7 +14,7 @@ public class Main {
         ht.put("key2", 20);
         ht.put("key3", 30);
 
-        for (Map.Entry<String, Integer> item: ht.entrySet())
+        // for (Map.Entry<String, Integer> item: ht.entrySet())
 
         // 해시 충돌 케이스 (해시 함수 사용)
 
