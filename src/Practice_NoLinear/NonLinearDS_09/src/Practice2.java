@@ -15,7 +15,17 @@ class Person2 {
 
 public class Practice2 {
     public static void solution(String[] name, int[] age) {
+         PriorityQueue<Person2> pq = new PriorityQueue<>(
+                (Person2 p1, Person2 p2) -> p2.name.compareTo(p1.name));
 
+        for (int i = 0; i < name.length; i++) {
+            pq.offer(new Person2(name[i], age[i]));
+        }
+
+        while (!pq.isEmpty()) {
+            Person2 p = pq.poll();
+            System.out.println(p.name + " " + p.age);
+        }
     }
 
     public static void main(String[] args) {

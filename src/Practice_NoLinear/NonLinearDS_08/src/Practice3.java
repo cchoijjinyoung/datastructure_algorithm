@@ -5,10 +5,103 @@ package Practice_NoLinear.NonLinearDS_08.src;// Practice 3
 // 삭제 횟수: 1
 // 출력: 20, -11 9 6 -5 3 -2 0
 
+import java.util.ArrayList;
+import java.util.stream.IntStream;
+
+class Num {
+    int val; // 절대값
+    boolean isMinus;
+
+    public Num(int val) {
+        this.isMinus = val < 0 ? true : false; // 음수면 true
+        this.val = Math.abs(val); // 절대값
+    }
+}
+
+class MaxHeap2 {
+    ArrayList<Num> heap;
+
+    public MaxHeap2() {
+        this.heap = new ArrayList<>();
+        this.heap.add(new Num(0));
+    }
+
+    public void insert(int data) {
+        heap.add(new Num(data));
+
+        int cur = heap.size() - 1;
+        while (cur > 1 && heap.get(cur / 2).val < heap.get(cur).val) {
+            Num parentVal = heap.get(cur / 2);
+            heap.set(cur / 2, heap.get(cur));
+            heap.set(cur, parentVal);
+
+            cur /= 2;
+        }
+    }
+
+    public Num delete() {
+        if (heap.size() == 1) {
+            System.out.println("Heap is empty!");
+            return null;
+        }
+
+        Num target = heap.get(1);
+
+        heap.set(1, heap.get(heap.size() - 1));
+        heap.remove(heap.size() - 1);
+
+        int cur = 1;
+        while (true) {
+            int leftIdx = cur * 2;
+            int rightIdx = cur * 2 + 1;
+            int targetIdx = -1;
+
+            if (rightIdx < heap.size()) {
+                targetIdx = heap.get(leftIdx).val > heap.get(rightIdx).val ? leftIdx : rightIdx;
+            } else if (leftIdx < heap.size()) {
+                targetIdx = cur * 2;
+            } else {
+                break;
+            }
+
+            if (heap.get(cur).val > heap.get(targetIdx).val) {
+                break;
+            } else {
+                Num parentVal = heap.get(cur);
+                heap.set(cur, heap.get(targetIdx));
+                heap.set(targetIdx, parentVal);
+                cur = targetIdx;
+            }
+        }
+
+        return target;
+    }
+
+    public void printTree() {
+        for (int i = 1; i < this.heap.size(); i++) {
+            System.out.print(this.heap.get(i) + " ");
+        }
+        System.out.println();
+    }
+}
 
 public class Practice3 {
     public static void solution(int[] nums, int deleteCnt) {
+        MaxHeap2 maxHeap = new MaxHeap2();
+        IntStream.of(nums).forEach(x -> maxHeap.insert(x));
 
+        int cnt = 0;
+        while (maxHeap.heap.size() != 1) {
+            Num cur = maxHeap.delete();
+
+            if (cnt++ < deleteCnt) {
+                continue;
+            }
+
+            int oriVal = cur.isMinus ? cur.val * -1 : cur.val;
+            System.out.print(oriVal + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {

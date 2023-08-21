@@ -11,13 +11,26 @@ package Practice_NoLinear.NonLinearDS_10.src;// Practice1
 // 출력: 1
 
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
 public class Practice1 {
     public static int solution1(int[] nums, int k) {
-        return 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int num : nums) {
+            pq.offer(num);
+
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+
+        return pq.peek();
     }
 
     public static int solution2(int[] nums, int k) {
-        return 0;
+        Arrays.sort(nums);
+        return nums[nums.length - k];
     }
 
     public static void main(String[] args) {

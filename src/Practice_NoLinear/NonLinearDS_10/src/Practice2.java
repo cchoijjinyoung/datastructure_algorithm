@@ -13,9 +13,25 @@ package Practice_NoLinear.NonLinearDS_10.src;// Practice2
 // 출력: 2
 
 
+import java.util.PriorityQueue;
+
 public class Practice2 {
     public static void solution(int[] stones) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((x, y) -> y - x);
+        for (int stone : stones) {
+            pq.offer(stone);
+        }
 
+        while (pq.size() > 1) {
+            int stone1 = pq.poll();
+            int stone2 = pq.poll();
+            int diff = stone1 - stone2;
+
+            if (diff != 0) {
+                pq.offer(diff);
+            }
+        }
+        System.out.println(pq.peek());
     }
 
     public static void main(String[] args) {

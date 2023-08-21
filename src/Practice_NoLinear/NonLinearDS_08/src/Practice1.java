@@ -1,4 +1,5 @@
-package Practice_NoLinear.NonLinearDS_08.src;// Practice 1
+package Practice_NoLinear.NonLinearDS_08.src;
+// Practice 1
 // 최소 힙에서 특정 값을 변경하는 코드를 작성하세요.
 // 특정 값이 여러개라면 모두 바꿔주세요.
 
@@ -73,9 +74,53 @@ class MinHeap{
 
 public class Practice1 {
     public static void solution(MinHeap minHeap, int from, int to) {
+        for (int i = 0; i < minHeap.heap.size(); i++) {
+            if (minHeap.heap.get(i) == from) {
+                minHeap.heap.set(i, to);
 
+                moveUp(minHeap, i);
+                moveDown(minHeap, i);
+            }
+        }
     }
 
+    public static void moveUp(MinHeap minHeap, int idx) { // 해당 idx 를 갖고 현재 위치가 더 작으면 위로 올리는 작업
+        int cur = idx;
+        while (cur > 1 && minHeap.heap.get(cur / 2) > minHeap.heap.get(cur)) {
+            int parentVal = minHeap.heap.get(cur / 2);
+            minHeap.heap.set(cur / 2, minHeap.heap.get(cur));
+            minHeap.heap.set(cur, parentVal);
+
+            cur /= 2;
+        }
+    }
+
+    public static void moveDown(MinHeap minHeap, int idx) {
+        int cur = idx;
+        while (true) {
+            int leftIdx = cur * 2;
+            int rightIdx = cur * 2 + 1;
+            int targetIdx = -1;
+
+            if (rightIdx < minHeap.heap.size()) {
+                targetIdx = minHeap.heap.get(leftIdx) < minHeap.heap.get(rightIdx) ? leftIdx : rightIdx;
+
+            } else if (leftIdx < minHeap.heap.size()) {
+                targetIdx = leftIdx;
+            } else {
+                break;
+            }
+
+            if (minHeap.heap.get(cur) < minHeap.heap.get(targetIdx)) {
+                break;
+            } else {
+                int parentVal = minHeap.heap.get(cur);
+                minHeap.heap.set(cur, minHeap.heap.get(targetIdx));
+                minHeap.heap.set(targetIdx, parentVal);
+                cur = targetIdx;
+            }
+        }
+    }
     public static void main(String[] args) {
         // Test code
         MinHeap minHeap = new MinHeap();
